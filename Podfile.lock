@@ -1,0 +1,22 @@
+PODS:
+  - objectiveflickr (2.0.4)
+  - ReactiveCocoa (2.5):
+    - ReactiveCocoa/UI (= 2.5)
+  - ReactiveCocoa/Core (2.5):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.5)
+  - ReactiveCocoa/UI (2.5):
+    - ReactiveCocoa/Core
+  - Underscore.m (0.2.1)
+
+DEPENDENCIES:
+  - objectiveflickr
+  - ReactiveCocoa
+  - Underscore.m
+
+SPEC CHECKSUMS:
+  objectiveflickr: aed169dae1eb5a5550ca78f7efd7ccde2e4c26e5
+  ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
+  Underscore.m: b86ca364d60509a39eb9c7886443c063b793aaba
+
+COCOAPODS: 0.35.0

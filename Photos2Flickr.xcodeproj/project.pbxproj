@@ -1,0 +1,492 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
+		256AC3DA0F4B6AC300CF3369 /* P2FAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* P2FAppDelegate.m */; };
+		342A43A9F334045F349FC8BE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4267617F94F27B0F0369F313 /* libPods.a */; };
+		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
+		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		AC395B071B0B64CF004ECE91 /* FlickrClient.m in Sources */ = {isa = PBXBuildFile; fileRef = AC395B061B0B64CF004ECE91 /* FlickrClient.m */; };
+		AC395B0A1B0B653C004ECE91 /* Photos2Flickr.m in Sources */ = {isa = PBXBuildFile; fileRef = AC395B091B0B653C004ECE91 /* Photos2Flickr.m */; };
+		AC395B0E1B0B673D004ECE91 /* PhotosClient.m in Sources */ = {isa = PBXBuildFile; fileRef = AC395B0D1B0B673D004ECE91 /* PhotosClient.m */; };
+		AC3F5A701AFEA7BD0096FAE4 /* MediaLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC3F5A6F1AFEA7BD0096FAE4 /* MediaLibrary.framework */; };
+		AC64D8391BF64E62009D3416 /* P2FUpdateMediaGroupTitleOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC64D8381BF64E62009D3416 /* P2FUpdateMediaGroupTitleOperation.m */; };
+		AC8733641B7DC52400C9AF3E /* P2FMediaObjectOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8733631B7DC52400C9AF3E /* P2FMediaObjectOperation.m */; };
+		AC8733671B7DC67600C9AF3E /* P2FMediaGroupOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8733661B7DC67600C9AF3E /* P2FMediaGroupOperation.m */; };
+		AC87336A1B7DC6FC00C9AF3E /* P2FMediaGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8733691B7DC6FC00C9AF3E /* P2FMediaGroup.m */; };
+		AC87336D1B7DC79D00C9AF3E /* P2FCreateMediaGroupOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC87336C1B7DC79D00C9AF3E /* P2FCreateMediaGroupOperation.m */; };
+		AC8733701B7DC84400C9AF3E /* P2FUpdateMediaGroupPicsOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC87336F1B7DC84400C9AF3E /* P2FUpdateMediaGroupPicsOperation.m */; };
+		ACA215F81B7501E200DF0472 /* P2FUploadMediaObjectOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA215F71B7501E200DF0472 /* P2FUploadMediaObjectOperation.m */; };
+		ACA215FB1B79D21800DF0472 /* P2FUpdateMediaObjectOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA215FA1B79D21800DF0472 /* P2FUpdateMediaObjectOperation.m */; };
+		ACA215FE1B79D4AE00DF0472 /* P2FMediaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA215FD1B79D4AE00DF0472 /* P2FMediaObject.m */; };
+		ACA216011B7A549F00DF0472 /* P2FOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA216001B7A549F00DF0472 /* P2FOperation.m */; };
+		ACCE4C2F1B975FF400B5506B /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = ACCE4C2E1B975FF400B5506B /* README.md */; };
+		F6945C831AA68A0800E47791 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6945C821AA68A0800E47791 /* Media.xcassets */; };
+		F6ACF39E165FE8B600C0113D /* P2FMenulet.m in Sources */ = {isa = PBXBuildFile; fileRef = F6ACF39D165FE8B600C0113D /* P2FMenulet.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		256AC3D80F4B6AC300CF3369 /* P2FAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2FAppDelegate.h; sourceTree = "<group>"; };
+		256AC3D90F4B6AC300CF3369 /* P2FAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2FAppDelegate.m; sourceTree = "<group>"; };
+		256AC3F00F4B6AF500CF3369 /* Photos2Flickr_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photos2Flickr_Prefix.pch; sourceTree = "<group>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		4267617F94F27B0F0369F313 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1107310486CEB800E47090 /* Photos2Flickr-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Photos2Flickr-Info.plist"; sourceTree = "<group>"; };
+		8D1107320486CEB800E47090 /* Photos to Flickr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Photos to Flickr.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A9896AD8D1CE9A81BBAC02D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		AC395B051B0B64C9004ECE91 /* FlickrClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrClient.h; sourceTree = "<group>"; };
+		AC395B061B0B64CF004ECE91 /* FlickrClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrClient.m; sourceTree = "<group>"; };
+		AC395B081B0B653C004ECE91 /* Photos2Flickr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photos2Flickr.h; sourceTree = "<group>"; };
+		AC395B091B0B653C004ECE91 /* Photos2Flickr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photos2Flickr.m; sourceTree = "<group>"; };
+		AC395B0C1B0B673D004ECE91 /* PhotosClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotosClient.h; sourceTree = "<group>"; };
+		AC395B0D1B0B673D004ECE91 /* PhotosClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotosClient.m; sourceTree = "<group>"; };
+		AC3F5A6F1AFEA7BD0096FAE4 /* MediaLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaLibrary.framework; path = System/Library/Frameworks/MediaLibrary.framework; sourceTree = SDKROOT; };
+		AC3F5A711AFFDE700096FAE4 /* Photos to Flickr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Photos to Flickr.entitlements"; sourceTree = "<group>"; };
+		AC634A9F1AF7FEE60090B443 /* Photos2Flickr.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = Photos2Flickr.sketch; sourceTree = "<group>"; };
+		AC64D8371BF64E62009D3416 /* P2FUpdateMediaGroupTitleOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2FUpdateMediaGroupTitleOperation.h; sourceTree = "<group>"; };
+		AC64D8381BF64E62009D3416 /* P2FUpdateMediaGroupTitleOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2FUpdateMediaGroupTitleOperation.m; sourceTree = "<group>"; };
+		AC8733621B7DC52400C9AF3E /* P2FMediaObjectOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2FMediaObjectOperation.h; sourceTree = "<group>"; };
+		AC8733631B7DC52400C9AF3E /* P2FMediaObjectOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2FMediaObjectOperation.m; sourceTree = "<group>"; };
+		AC8733651B7DC67600C9AF3E /* P2FMediaGroupOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2FMediaGroupOperation.h; sourceTree = "<group>"; };
+		AC8733661B7DC67600C9AF3E /* P2FMediaGroupOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2FMediaGroupOperation.m; sourceTree = "<group>"; };
+		AC8733681B7DC6FC00C9AF3E /* P2FMediaGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2FMediaGroup.h; sourceTree = "<group>"; };
+		AC8733691B7DC6FC00C9AF3E /* P2FMediaGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2FMediaGroup.m; sourceTree = "<group>"; };
+		AC87336B1B7DC79D00C9AF3E /* P2FCreateMediaGroupOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2FCreateMediaGroupOperation.h; sourceTree = "<group>"; };
+		AC87336C1B7DC79D00C9AF3E /* P2FCreateMediaGroupOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2FCreateMediaGroupOperation.m; sourceTree = "<group>"; };
+		AC87336E1B7DC84400C9AF3E /* P2FUpdateMediaGroupPicsOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2FUpdateMediaGroupPicsOperation.h; sourceTree = "<group>"; };
+		AC87336F1B7DC84400C9AF3E /* P2FUpdateMediaGroupPicsOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2FUpdateMediaGroupPicsOperation.m; sourceTree = "<group>"; };
+		ACA215F61B7501E200DF0472 /* P2FUploadMediaObjectOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2FUploadMediaObjectOperation.h; sourceTree = "<group>"; };
+		ACA215F71B7501E200DF0472 /* P2FUploadMediaObjectOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2FUploadMediaObjectOperation.m; sourceTree = "<group>"; };
+		ACA215F91B79D21800DF0472 /* P2FUpdateMediaObjectOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2FUpdateMediaObjectOperation.h; sourceTree = "<group>"; };
+		ACA215FA1B79D21800DF0472 /* P2FUpdateMediaObjectOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2FUpdateMediaObjectOperation.m; sourceTree = "<group>"; };
+		ACA215FC1B79D4AE00DF0472 /* P2FMediaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2FMediaObject.h; sourceTree = "<group>"; };
+		ACA215FD1B79D4AE00DF0472 /* P2FMediaObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2FMediaObject.m; sourceTree = "<group>"; };
+		ACA215FF1B7A549F00DF0472 /* P2FOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2FOperation.h; sourceTree = "<group>"; };
+		ACA216001B7A549F00DF0472 /* P2FOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2FOperation.m; sourceTree = "<group>"; };
+		ACCE4C2E1B975FF400B5506B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		ACDF6BEB1AF8064F000EB860 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		CBC8770C33B1256482256F63 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		F6945C821AA68A0800E47791 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		F6ACF39C165FE8B600C0113D /* P2FMenulet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2FMenulet.h; sourceTree = "<group>"; };
+		F6ACF39D165FE8B600C0113D /* P2FMenulet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2FMenulet.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D11072E0486CEB800E47090 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC3F5A701AFEA7BD0096FAE4 /* MediaLibrary.framework in Frameworks */,
+				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				342A43A9F334045F349FC8BE /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				AC1992511B91DCE600C17C35 /* Photos */,
+				AC1992501B91DCD800C17C35 /* Flickr */,
+				AC19924F1B9080A500C17C35 /* Operations */,
+				AC395B081B0B653C004ECE91 /* Photos2Flickr.h */,
+				AC395B091B0B653C004ECE91 /* Photos2Flickr.m */,
+				256AC3D80F4B6AC300CF3369 /* P2FAppDelegate.h */,
+				256AC3D90F4B6AC300CF3369 /* P2FAppDelegate.m */,
+				F6ACF39C165FE8B600C0113D /* P2FMenulet.h */,
+				F6ACF39D165FE8B600C0113D /* P2FMenulet.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107320486CEB800E47090 /* Photos to Flickr.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* IPMenuletExample */ = {
+			isa = PBXGroup;
+			children = (
+				AC3F5A711AFFDE700096FAE4 /* Photos to Flickr.entitlements */,
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+				B30CA47F000665889EF78B31 /* Pods */,
+			);
+			name = IPMenuletExample;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				256AC3F00F4B6AF500CF3369 /* Photos2Flickr_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				ACCE4C2E1B975FF400B5506B /* README.md */,
+				AC634A9F1AF7FEE60090B443 /* Photos2Flickr.sketch */,
+				8D1107310486CEB800E47090 /* Photos2Flickr-Info.plist */,
+				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
+				F6945C821AA68A0800E47791 /* Media.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AC3F5A6F1AFEA7BD0096FAE4 /* MediaLibrary.framework */,
+				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+				4267617F94F27B0F0369F313 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AC19924F1B9080A500C17C35 /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				ACA215FF1B7A549F00DF0472 /* P2FOperation.h */,
+				ACA216001B7A549F00DF0472 /* P2FOperation.m */,
+				AC8733621B7DC52400C9AF3E /* P2FMediaObjectOperation.h */,
+				AC8733631B7DC52400C9AF3E /* P2FMediaObjectOperation.m */,
+				ACA215F61B7501E200DF0472 /* P2FUploadMediaObjectOperation.h */,
+				ACA215F71B7501E200DF0472 /* P2FUploadMediaObjectOperation.m */,
+				ACA215F91B79D21800DF0472 /* P2FUpdateMediaObjectOperation.h */,
+				ACA215FA1B79D21800DF0472 /* P2FUpdateMediaObjectOperation.m */,
+				AC8733651B7DC67600C9AF3E /* P2FMediaGroupOperation.h */,
+				AC8733661B7DC67600C9AF3E /* P2FMediaGroupOperation.m */,
+				AC87336B1B7DC79D00C9AF3E /* P2FCreateMediaGroupOperation.h */,
+				AC87336C1B7DC79D00C9AF3E /* P2FCreateMediaGroupOperation.m */,
+				AC87336E1B7DC84400C9AF3E /* P2FUpdateMediaGroupPicsOperation.h */,
+				AC87336F1B7DC84400C9AF3E /* P2FUpdateMediaGroupPicsOperation.m */,
+				AC64D8371BF64E62009D3416 /* P2FUpdateMediaGroupTitleOperation.h */,
+				AC64D8381BF64E62009D3416 /* P2FUpdateMediaGroupTitleOperation.m */,
+			);
+			name = Operations;
+			sourceTree = "<group>";
+		};
+		AC1992501B91DCD800C17C35 /* Flickr */ = {
+			isa = PBXGroup;
+			children = (
+				AC395B051B0B64C9004ECE91 /* FlickrClient.h */,
+				AC395B061B0B64CF004ECE91 /* FlickrClient.m */,
+			);
+			name = Flickr;
+			sourceTree = "<group>";
+		};
+		AC1992511B91DCE600C17C35 /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				AC395B0C1B0B673D004ECE91 /* PhotosClient.h */,
+				AC395B0D1B0B673D004ECE91 /* PhotosClient.m */,
+				ACA215FC1B79D4AE00DF0472 /* P2FMediaObject.h */,
+				ACA215FD1B79D4AE00DF0472 /* P2FMediaObject.m */,
+				AC8733681B7DC6FC00C9AF3E /* P2FMediaGroup.h */,
+				AC8733691B7DC6FC00C9AF3E /* P2FMediaGroup.m */,
+			);
+			name = Photos;
+			sourceTree = "<group>";
+		};
+		B30CA47F000665889EF78B31 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9A9896AD8D1CE9A81BBAC02D /* Pods.debug.xcconfig */,
+				CBC8770C33B1256482256F63 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D1107260486CEB800E47090 /* Photos2Flickr */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Photos2Flickr" */;
+			buildPhases = (
+				5CBC28889F14738C5E300B4C /* Check Pods Manifest.lock */,
+				8D1107290486CEB800E47090 /* Resources */,
+				8D11072C0486CEB800E47090 /* Sources */,
+				8D11072E0486CEB800E47090 /* Frameworks */,
+				43BA59E923CB06FF0BB4CAEE /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Photos2Flickr;
+			productInstallPath = "$(HOME)/Applications";
+			productName = IPMenuletExample;
+			productReference = 8D1107320486CEB800E47090 /* Photos to Flickr.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				TargetAttributes = {
+					8D1107260486CEB800E47090 = {
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Photos2Flickr" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+				fr,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* IPMenuletExample */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D1107260486CEB800E47090 /* Photos2Flickr */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D1107290486CEB800E47090 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
+				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
+				F6945C831AA68A0800E47791 /* Media.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		43BA59E923CB06FF0BB4CAEE /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5CBC28889F14738C5E300B4C /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D11072C0486CEB800E47090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC87336A1B7DC6FC00C9AF3E /* P2FMediaGroup.m in Sources */,
+				ACA216011B7A549F00DF0472 /* P2FOperation.m in Sources */,
+				AC64D8391BF64E62009D3416 /* P2FUpdateMediaGroupTitleOperation.m in Sources */,
+				AC8733701B7DC84400C9AF3E /* P2FUpdateMediaGroupPicsOperation.m in Sources */,
+				8D11072D0486CEB800E47090 /* main.m in Sources */,
+				AC8733641B7DC52400C9AF3E /* P2FMediaObjectOperation.m in Sources */,
+				ACA215FE1B79D4AE00DF0472 /* P2FMediaObject.m in Sources */,
+				ACCE4C2F1B975FF400B5506B /* README.md in Sources */,
+				ACA215F81B7501E200DF0472 /* P2FUploadMediaObjectOperation.m in Sources */,
+				256AC3DA0F4B6AC300CF3369 /* P2FAppDelegate.m in Sources */,
+				AC395B0A1B0B653C004ECE91 /* Photos2Flickr.m in Sources */,
+				AC395B0E1B0B673D004ECE91 /* PhotosClient.m in Sources */,
+				ACA215FB1B79D21800DF0472 /* P2FUpdateMediaObjectOperation.m in Sources */,
+				AC8733671B7DC67600C9AF3E /* P2FMediaGroupOperation.m in Sources */,
+				F6ACF39E165FE8B600C0113D /* P2FMenulet.m in Sources */,
+				AC395B071B0B64CF004ECE91 /* FlickrClient.m in Sources */,
+				AC87336D1B7DC79D00C9AF3E /* P2FCreateMediaGroupOperation.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C165DFE840E0CC02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1DDD58140DA1D0A300B32029 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1DDD58150DA1D0A300B32029 /* English */,
+				ACDF6BEB1AF8064F000EB860 /* fr */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C01FCF4B08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A9896AD8D1CE9A81BBAC02D /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = "Photos to Flickr.entitlements";
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Photos2Flickr_Prefix.pch;
+				INFOPLIST_FILE = "$(SRCROOT)/Photos2Flickr-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = "Photos to Flickr";
+			};
+			name = Debug;
+		};
+		C01FCF4C08A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CBC8770C33B1256482256F63 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = "Photos to Flickr.entitlements";
+				CODE_SIGN_IDENTITY = "-";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Photos2Flickr_Prefix.pch;
+				INFOPLIST_FILE = "$(SRCROOT)/Photos2Flickr-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = "Photos to Flickr";
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Photos2Flickr" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4B08A954540054247B /* Debug */,
+				C01FCF4C08A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Photos2Flickr" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}
