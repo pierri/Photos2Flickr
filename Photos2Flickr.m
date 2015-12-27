@@ -44,7 +44,6 @@
                                               map:self.determineMediaGroupOperations]
                                               flatten];
     
-    
     RACSignal *operationsSignal = [[mediaObjectsOperationsSignal
                                    concat:mediaGroupsOperationsSignal]
                                    filter:self.removeNil];

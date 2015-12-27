@@ -107,7 +107,7 @@ Medium priority:
 - Feature: Update existing pics
 - Feature: Automatically upload to Flickr whenever media library is updated
 - Feature: Persist and display last upload completion timestamp (x minutes ago)
-- Bugfix: Progress stops when menulet is open
+- Bugfix: Progress shouldn't freeze when menulet is open
 
 Low priority:
 - Refactor: Make FlickrClient reactive/asynchronous (not only its upload method)
