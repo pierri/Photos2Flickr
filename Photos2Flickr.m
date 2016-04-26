@@ -4,6 +4,8 @@
 #import "P2FUpdateMediaObjectOperation.h"
 #import "P2FCreateMediaGroupOperation.h"
 #import "P2FUpdateMediaGroupPicsOperation.h"
+#import "P2FDeleteFlickrPhotoOperation.h"
+
 #import "Underscore.h"
 #define _ Underscore
 
@@ -34,6 +36,29 @@
         
         [_flickrClient readAllPhotosetsWithDescriptionPrefix:kMachineTagPrefix];
         
+        
+        // Delete photos from Flickr which are not available in photos anymore
+        NSArray *mediaObjectsIdentifiers = _.array([photosClient mediaObjects]).map(^(MLMediaObject *mediaObject) {
+            return [FlickrClient cleanTag: [mediaObject identifier]];
+        }).unwrap;
+        
+        RACSignal *deleteOperationsSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+            NSDictionary *flickrPhotosToBeDeleted =
+            _.dict(_.rejectKeys([_flickrClient mapCleanIdentifierToFlickrPhoto], ^BOOL (NSString *photosMediaObjectIdentifier) {
+                return [mediaObjectsIdentifiers containsObject:photosMediaObjectIdentifier];
+            })).each(^(NSString *photosMediaObjectIdentifier, NSDictionary *flickrPhoto) {
+                NSString *flickrPhotoId = [flickrPhoto objectForKey:@"id"];
+                P2FDeleteFlickrPhotoOperation *operation = [[P2FDeleteFlickrPhotoOperation alloc]initWithFlickrPhotoId:flickrPhotoId];
+                [subscriber sendNext:operation];
+            }).unwrap;
+            
+            NSLog(@"%lu pics deleted from Photos will be deleted from Flickr", (unsigned long)[flickrPhotosToBeDeleted count]);
+            
+            [subscriber sendCompleted];
+            return nil;
+        }];
+
+        
         RACSignal *mediaObjectsSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
             _.array([photosClient mediaObjects]).each(^(MLMediaObject* mediaObject) {
                 [subscriber sendNext:mediaObject];
@@ -52,7 +77,8 @@
                                                    map:self.determineMediaGroupOperations]
                                                   flatten];
         
-        RACSignal *operationsSignal = [[mediaObjectsOperationsSignal
+        RACSignal *operationsSignal = [[[deleteOperationsSignal
+                                         concat:mediaObjectsOperationsSignal]
                                         concat:mediaGroupsOperationsSignal]
                                        filter:self.removeNil];
         

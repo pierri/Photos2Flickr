@@ -29,6 +29,10 @@
 - (void)setFlickrPhotoId:(NSString*)flickrPhotoId forRawIdentifier:(NSString*)rawIdentifier;
 - (NSString*)getFlickrPhotoIdForRawIdentifier:(NSString*)rawIdentifier;
 - (BOOL)flickrPhotoForRawIdentifier:(NSString*)rawIdentifier hasLastChangedBeforeModificationDate:(NSDate*)modificationDate;
+-(RACSignal*)deletePhoto:(NSString*) photoId;
+
+#pragma mark Helpers
++ (NSString*)cleanTag:(NSString*)rawTag;
 
 #pragma mark Photosets
 - (void)readAllPhotosetsWithDescriptionPrefix:(NSString*)descriptionPrefix;

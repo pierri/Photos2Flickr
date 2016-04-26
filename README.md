@@ -76,6 +76,8 @@ Operations performed:
   - Progress can be computed only after this operation
   - Status indication: "Getting picture list from Flickr..."
 
+* For pics deleted since last upload: Delete picture from Flickr
+
 * For new pics & pics changed since last upload: Upload pictures and set metadata
   - Upload order: oldest first
   - Use size in MB for determining progress
@@ -103,7 +105,6 @@ Backlog
 -------
 
 Medium priority:
-- Feature: Delete picture from Flickr if it was deleted from Photos
 - Feature/Bugfix: Error handling, e.g. when pic can't be uploaded
 - Feature: Update existing pics
 - Feature: Automatically upload to Flickr whenever media library is updated

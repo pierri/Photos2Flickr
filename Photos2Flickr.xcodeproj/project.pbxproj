@@ -18,6 +18,7 @@
 		AC395B0E1B0B673D004ECE91 /* PhotosClient.m in Sources */ = {isa = PBXBuildFile; fileRef = AC395B0D1B0B673D004ECE91 /* PhotosClient.m */; };
 		AC3F5A701AFEA7BD0096FAE4 /* MediaLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC3F5A6F1AFEA7BD0096FAE4 /* MediaLibrary.framework */; };
 		AC5689461CCE9F4300D84EFE /* P2FFlickrPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5689451CCE9F4300D84EFE /* P2FFlickrPhoto.m */; };
+		AC5689491CCFF97B00D84EFE /* P2FDeleteFlickrPhotoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5689481CCFF97B00D84EFE /* P2FDeleteFlickrPhotoOperation.m */; };
 		AC64D8391BF64E62009D3416 /* P2FUpdateMediaGroupTitleOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC64D8381BF64E62009D3416 /* P2FUpdateMediaGroupTitleOperation.m */; };
 		AC8733641B7DC52400C9AF3E /* P2FMediaObjectOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8733631B7DC52400C9AF3E /* P2FMediaObjectOperation.m */; };
 		AC8733671B7DC67600C9AF3E /* P2FMediaGroupOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8733661B7DC67600C9AF3E /* P2FMediaGroupOperation.m */; };
@@ -58,6 +59,8 @@
 		AC3F5A711AFFDE700096FAE4 /* Photos to Flickr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Photos to Flickr.entitlements"; sourceTree = "<group>"; };
 		AC5689441CCE9F4300D84EFE /* P2FFlickrPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2FFlickrPhoto.h; sourceTree = "<group>"; };
 		AC5689451CCE9F4300D84EFE /* P2FFlickrPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2FFlickrPhoto.m; sourceTree = "<group>"; };
+		AC5689471CCFF97B00D84EFE /* P2FDeleteFlickrPhotoOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2FDeleteFlickrPhotoOperation.h; sourceTree = "<group>"; };
+		AC5689481CCFF97B00D84EFE /* P2FDeleteFlickrPhotoOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2FDeleteFlickrPhotoOperation.m; sourceTree = "<group>"; };
 		AC634A9F1AF7FEE60090B443 /* Photos2Flickr.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = Photos2Flickr.sketch; sourceTree = "<group>"; };
 		AC64D8371BF64E62009D3416 /* P2FUpdateMediaGroupTitleOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2FUpdateMediaGroupTitleOperation.h; sourceTree = "<group>"; };
 		AC64D8381BF64E62009D3416 /* P2FUpdateMediaGroupTitleOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2FUpdateMediaGroupTitleOperation.m; sourceTree = "<group>"; };
@@ -195,6 +198,8 @@
 			children = (
 				ACA215FF1B7A549F00DF0472 /* P2FOperation.h */,
 				ACA216001B7A549F00DF0472 /* P2FOperation.m */,
+				AC5689471CCFF97B00D84EFE /* P2FDeleteFlickrPhotoOperation.h */,
+				AC5689481CCFF97B00D84EFE /* P2FDeleteFlickrPhotoOperation.m */,
 				AC8733621B7DC52400C9AF3E /* P2FMediaObjectOperation.h */,
 				AC8733631B7DC52400C9AF3E /* P2FMediaObjectOperation.m */,
 				ACA215F61B7501E200DF0472 /* P2FUploadMediaObjectOperation.h */,
@@ -370,6 +375,7 @@
 				AC395B0E1B0B673D004ECE91 /* PhotosClient.m in Sources */,
 				AC5689461CCE9F4300D84EFE /* P2FFlickrPhoto.m in Sources */,
 				ACA215FB1B79D21800DF0472 /* P2FUpdateMediaObjectOperation.m in Sources */,
+				AC5689491CCFF97B00D84EFE /* P2FDeleteFlickrPhotoOperation.m in Sources */,
 				AC8733671B7DC67600C9AF3E /* P2FMediaGroupOperation.m in Sources */,
 				F6ACF39E165FE8B600C0113D /* P2FMenulet.m in Sources */,
 				AC395B071B0B64CF004ECE91 /* FlickrClient.m in Sources */,

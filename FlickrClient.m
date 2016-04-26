@@ -375,7 +375,6 @@ static FlickrClient *_sharedClient = nil;
 }
 
 
-/* private */
 + (NSString*)cleanTag:(NSString*)rawTag {
     NSString *guid = [rawTag copy];
     guid = [guid lowercaseString];
@@ -431,14 +430,16 @@ static FlickrClient *_sharedClient = nil;
     }
 }
 
--(void)deletePhoto:(NSString*) photoId {
+-(RACSignal*)deletePhoto:(NSString*) photoId {
     NSLog(@"- Deleting %@", photoId);
     
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             photoId, @"photo_id",
                             nil];
     
+    _flickrRequest.sessionInfo = kSignalOperation;
     [_flickrRequest callAPIMethodWithPOST:@"flickr.photos.delete" arguments:params];
+    return [self createOperationSignal];
 }
 
 - (RACSignal*)searchImagesPage:(int)pageNo {
