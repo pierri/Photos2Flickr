@@ -25,17 +25,25 @@
 -(void) uploadMedia {
     [_delegate processStarting];
     
-    [[_flickrClient readAllImagesWithMachineTag:kMachineTagPrefix] subscribeCompleted:^{
-        
+    PhotosClient *photosClient = [[PhotosClient alloc] init];
+    RACSignal *mediaObjectsLoadingSignal = [photosClient loadMediaObjects];
+    
+    RACSignal *flickrPhotosLoadingSignal = [_flickrClient readAllImagesWithMachineTag:kMachineTagPrefix];
+    
+    [[mediaObjectsLoadingSignal merge:flickrPhotosLoadingSignal] subscribeCompleted:^{
         
         [_flickrClient readAllPhotosetsWithDescriptionPrefix:kMachineTagPrefix];
         
+        RACSignal *mediaObjectsSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+            _.array([photosClient mediaObjects]).each(^(MLMediaObject* mediaObject) {
+                [subscriber sendNext:mediaObject];
+            });
+            
+            [subscriber sendCompleted];
+            return nil;
+        }];
         
-        //NSLog(@"Loading media objects");
-        
-        PhotosClient *photosClient = [[PhotosClient alloc] init];
-        
-        RACSignal *mediaObjectsOperationsSignal = [[[photosClient loadMediaObjects]
+        RACSignal *mediaObjectsOperationsSignal = [[mediaObjectsSignal
                                                     map:self.wrapInP2FMediaObject]
                                                    map:self.determineMediaObjectOperation];
         

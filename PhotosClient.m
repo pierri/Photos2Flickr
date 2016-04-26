@@ -52,11 +52,7 @@ static NSString *const kAlbumMediaObjects = @"albumMediaObjects";
 
             [allPhotosAlbumUpdated subscribeNext:^(NSArray* mediaObjects) {
                 NSLog(@"Media objects loaded");
-                
-                _.array(mediaObjects).each(^(MLMediaObject* mediaObject) {
-                    [mediaObjectsSignal sendNext:mediaObject];
-                });
-
+                _mediaObjects = mediaObjects;
                 [mediaObjectsSignal sendCompleted];
             }];
             
