@@ -362,7 +362,7 @@ static FlickrClient *_sharedClient = nil;
         
         NSLog(@"Page %d: %lu entries", pageNo, (unsigned long)[photoArray count]);
         
-        if (pageNo <= _pages) {
+        if (pageNo < _pages) {
             [self recursiveReadImagesWithMachineTag:machineTagPrefixClean
                                              pageNo:pageNo + 1
                                             subject:subject];
