@@ -406,25 +406,28 @@ static FlickrClient *_sharedClient = nil;
     
     return false;
 }
-
 -(void)deleteDuplicates:(NSArray*)duplicates {
     NSLog(@"Deleting %lu duplicates", (unsigned long)[duplicates count]);
     
     for (int i = 0; i < [duplicates count]; i++) {
         NSString *photoId = [duplicates objectAtIndex:i];
-        NSLog(@"- Deleting %@", photoId);
         
-        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                                photoId, @"photo_id",
-                                nil];
-        
-        [_flickrRequest callAPIMethodWithPOST:@"flickr.photos.delete" arguments:params];
+        [self deletePhoto:photoId];
         
         while ([self isRunning]) {
             [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:.1]];
         }
-        
     }
+}
+
+-(void)deletePhoto:(NSString*) photoId {
+    NSLog(@"- Deleting %@", photoId);
+    
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            photoId, @"photo_id",
+                            nil];
+    
+    [_flickrRequest callAPIMethodWithPOST:@"flickr.photos.delete" arguments:params];
 }
 
 - (NSArray*)searchImagesPage:(int)pageNo {
