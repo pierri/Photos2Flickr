@@ -103,6 +103,7 @@ Backlog
 -------
 
 Medium priority:
+- Feature: Delete picture from Flickr if it was deleted from Photos
 - Feature/Bugfix: Error handling, e.g. when pic can't be uploaded
 - Feature: Update existing pics
 - Feature: Automatically upload to Flickr whenever media library is updated
