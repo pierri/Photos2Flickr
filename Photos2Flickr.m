@@ -25,60 +25,62 @@
 -(void) uploadMedia {
     [_delegate processStarting];
     
-    
-    [_flickrClient readAllImagesWithMachineTag:kMachineTagPrefix];
-    
-    [_flickrClient readAllPhotosetsWithDescriptionPrefix:kMachineTagPrefix];
-    
-    
-    //NSLog(@"Loading media objects");
-    
-    PhotosClient *photosClient = [[PhotosClient alloc] init];
-    
-    RACSignal *mediaObjectsOperationsSignal = [[[photosClient loadMediaObjects]
-                                                map:self.wrapInP2FMediaObject]
-                                               map:self.determineMediaObjectOperation];
-    
-    RACSignal *mediaGroupsOperationsSignal = [[[[photosClient loadMediaGroups]
-                                               map:self.wrapInP2FMediaGroup]
-                                              map:self.determineMediaGroupOperations]
-                                              flatten];
-    
-    RACSignal *operationsSignal = [[mediaObjectsOperationsSignal
-                                   concat:mediaGroupsOperationsSignal]
-                                   filter:self.removeNil];
-    
-    RACSignal *operationsReplaySignal = [operationsSignal replay];
-    
-    [[operationsSignal aggregateWithStart:@0 reduce:self.addOperationSize]
-     subscribeNext:^(NSNumber *totalBytesToUpload) {
-         
-         _totalBytesToUpload = [totalBytesToUpload unsignedIntegerValue];
-         _totalBytesDone = 0;
-         [self.delegate progressBytesUploaded:_totalBytesDone totalBytesToUpload:_totalBytesToUpload];
-         NSLog(@"%@ to upload overall", [self sizeHumanReadable:[totalBytesToUpload unsignedIntegerValue]]);
-     
-         [[operationsReplaySignal zipWith:_flickrClient.ready] subscribeNext:^(RACTuple *tuple) {
-             P2FOperation *operation = [tuple objectAtIndex:0];
-             NSString *operationDescription = [operation description];
-             NSUInteger operationSize = [operation getSizeBytes];
+    [[_flickrClient readAllImagesWithMachineTag:kMachineTagPrefix] subscribeCompleted:^{
+        
+        
+        [_flickrClient readAllPhotosetsWithDescriptionPrefix:kMachineTagPrefix];
+        
+        
+        //NSLog(@"Loading media objects");
+        
+        PhotosClient *photosClient = [[PhotosClient alloc] init];
+        
+        RACSignal *mediaObjectsOperationsSignal = [[[photosClient loadMediaObjects]
+                                                    map:self.wrapInP2FMediaObject]
+                                                   map:self.determineMediaObjectOperation];
+        
+        RACSignal *mediaGroupsOperationsSignal = [[[[photosClient loadMediaGroups]
+                                                    map:self.wrapInP2FMediaGroup]
+                                                   map:self.determineMediaGroupOperations]
+                                                  flatten];
+        
+        RACSignal *operationsSignal = [[mediaObjectsOperationsSignal
+                                        concat:mediaGroupsOperationsSignal]
+                                       filter:self.removeNil];
+        
+        RACSignal *operationsReplaySignal = [operationsSignal replay];
+        
+        [[operationsSignal aggregateWithStart:@0 reduce:self.addOperationSize]
+         subscribeNext:^(NSNumber *totalBytesToUpload) {
              
-             [self operationProgress:operationDescription bytesDone:0 ofSizeBytes:@(operationSize)];
+             _totalBytesToUpload = [totalBytesToUpload unsignedIntegerValue];
+             _totalBytesDone = 0;
+             [self.delegate progressBytesUploaded:_totalBytesDone totalBytesToUpload:_totalBytesToUpload];
+             NSLog(@"%@ to upload overall", [self sizeHumanReadable:[totalBytesToUpload unsignedIntegerValue]]);
              
-             RACSignal *executionSignal = [operation execute];
-             
-             [executionSignal subscribeNext:^(NSNumber *bytesSentNumber) {
-                 [self operationProgress:operationDescription bytesDone:bytesSentNumber ofSizeBytes:@(operationSize)];
+             [[operationsReplaySignal zipWith:_flickrClient.ready] subscribeNext:^(RACTuple *tuple) {
+                 P2FOperation *operation = [tuple objectAtIndex:0];
+                 NSString *operationDescription = [operation description];
+                 NSUInteger operationSize = [operation getSizeBytes];
+                 
+                 [self operationProgress:operationDescription bytesDone:0 ofSizeBytes:@(operationSize)];
+                 
+                 RACSignal *executionSignal = [operation execute];
+                 
+                 [executionSignal subscribeNext:^(NSNumber *bytesSentNumber) {
+                     [self operationProgress:operationDescription bytesDone:bytesSentNumber ofSizeBytes:@(operationSize)];
+                 } completed:^{
+                     _totalBytesDone += operationSize;
+                 }];
              } completed:^{
-                 _totalBytesDone += operationSize;
+                 NSLog(@"Processing done or interrupted");
+                 [_delegate processInterrupted];
              }];
-         } completed:^{
-             NSLog(@"Processing done or interrupted");
-             [_delegate processInterrupted];
+             
+             [_flickrClient startProcessing];
          }];
-         
-         [_flickrClient startProcessing];
-     }];
+
+    }];
 }
 
 - (UnderscoreArrayMapBlock)wrapInP2FMediaObject {

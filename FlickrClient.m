@@ -307,25 +307,34 @@ static FlickrClient *_sharedClient = nil;
 #pragma mark Photos ------------------------------------------------------------------------------------
 
 
-- (void)readAllImagesWithMachineTag:(NSString *)machineTagPrefix {
-    NSString *machineTagPrefixClean = [FlickrClient cleanTag:machineTagPrefix];
+- (RACSignal*)readAllImagesWithMachineTag:(NSString *)machineTagPrefix {
     
-    _pages = 1;
-    NSMutableDictionary *photoDict = [[NSMutableDictionary alloc]init];
-    NSMutableArray *duplicates = [[NSMutableArray alloc]init];
+    NSString *machineTagPrefixClean = [FlickrClient cleanTag:machineTagPrefix];
+    RACSubject *combinedOperationSignal = [[RACSubject alloc]init];
+    _mapCleanIdentifierToFlickrPhoto = [[NSMutableDictionary alloc]init];
+    [self recursiveReadImagesWithMachineTag:machineTagPrefixClean pageNo:1 subject:combinedOperationSignal];
+    return combinedOperationSignal;
+}
+
+-(void) recursiveReadImagesWithMachineTag:(NSString*)machineTagPrefixClean pageNo:(int)pageNo subject:(RACSubject*) subject{
+    
+    RACSignal *searchOperationSignal = [self searchImagesPage:pageNo];
+    
+    [searchOperationSignal subscribeCompleted:^{
+        NSDictionary *photosDict = [_responseDict objectForKey:@"photos"];
         
-    int pageNo = 1;
-    do {
-        NSArray *photoArray = [self searchImagesPage:pageNo];
+        _pages = [[photosDict objectForKey:@"pages"] intValue];
+        
+        NSArray *photoArray = [photosDict objectForKey:@"photo"];
         
         if (photoArray == nil) {
-            continue;
+            return;
         }
         
         for (int i = 0; i < [photoArray count]; i++) {
             NSDictionary *currentPhoto = [photoArray objectAtIndex:i];
             NSString *photoId = [currentPhoto objectForKey:@"id"];
-
+            
             NSString *tagsString = [currentPhoto objectForKey:@"tags"];
             NSArray *tags = [tagsString componentsSeparatedByString:@" "];
             
@@ -343,26 +352,28 @@ static FlickrClient *_sharedClient = nil;
                 // following transformations already performed by Flickr somehow, just documenting it here...
                 photosMediaIdentifierClean = [FlickrClient cleanTag:photosMediaIdentifierClean];
                 
-                if ([photoDict objectForKey:photosMediaIdentifierClean] != nil) {
-                    [duplicates addObject:photoId];
+                if ([_mapCleanIdentifierToFlickrPhoto objectForKey:photosMediaIdentifierClean] != nil) {
+                    //[duplicates addObject:photoId];
                 } else {
-                    [photoDict setObject:currentPhoto forKey:photosMediaIdentifierClean];
+                    [_mapCleanIdentifierToFlickrPhoto setObject:currentPhoto forKey:photosMediaIdentifierClean];
                 }
             }
         }
         
         NSLog(@"Page %d: %lu entries", pageNo, (unsigned long)[photoArray count]);
         
-        pageNo++;
+        if (pageNo <= _pages) {
+            [self recursiveReadImagesWithMachineTag:machineTagPrefixClean
+                                             pageNo:pageNo + 1
+                                            subject:subject];
+        } else {
+            NSLog(@"Found %lu images already uploaded", (unsigned long)[_mapCleanIdentifierToFlickrPhoto count]);
+            [subject sendCompleted];
+        }
         
-    } while (pageNo <= _pages);
-    
-    NSLog(@"Found %lu images already uploaded", (unsigned long)[photoDict count]);
-    
-    [self deleteDuplicates:duplicates];
-    
-    self.mapCleanIdentifierToFlickrPhoto = photoDict;
+    }];
 }
+
 
 /* private */
 + (NSString*)cleanTag:(NSString*)rawTag {
@@ -430,7 +441,7 @@ static FlickrClient *_sharedClient = nil;
     [_flickrRequest callAPIMethodWithPOST:@"flickr.photos.delete" arguments:params];
 }
 
-- (NSArray*)searchImagesPage:(int)pageNo {
+- (RACSignal*)searchImagesPage:(int)pageNo {
     
     NSDictionary *searchParams = [NSDictionary dictionaryWithObjectsAndKeys:
                                  // @"iphoto2flickr:", @"machine_tags", // This skips images that should be returned?!?
@@ -440,19 +451,9 @@ static FlickrClient *_sharedClient = nil;
                                   [NSString stringWithFormat:@"%d", pageNo], @"page",
                                   nil];
     
+    _flickrRequest.sessionInfo = kSignalOperation;
     [_flickrRequest callAPIMethodWithGET:@"flickr.photos.search" arguments:searchParams];
-    
-    while ([self isRunning]) {
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:.5]];
-    }
-
-    NSDictionary *photosDict = [_responseDict objectForKey:@"photos"];
-    
-    _pages = [[photosDict objectForKey:@"pages"] intValue];
-
-    NSArray *photoArray = [photosDict objectForKey:@"photo"];
-    
-    return photoArray;
+    return [self createOperationSignal];
 }
 
 
@@ -535,7 +536,6 @@ static FlickrClient *_sharedClient = nil;
                             nil];
     
    _flickrRequest.sessionInfo = kSignalOperation;
-
     [_flickrRequest callAPIMethodWithPOST:@"flickr.photosets.create" arguments:params];
     return [self createOperationSignal];
 }

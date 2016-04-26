@@ -25,7 +25,7 @@
 - (NSString*)getUploadedPhotoId;
 
 #pragma mark Photos
-- (void)readAllImagesWithMachineTag:(NSString*)machineTagPrefix;
+- (RACSignal*)readAllImagesWithMachineTag:(NSString*)machineTagPrefix;
 - (void)setFlickrPhotoId:(NSString*)flickrPhotoId forRawIdentifier:(NSString*)rawIdentifier;
 - (NSString*)getFlickrPhotoIdForRawIdentifier:(NSString*)rawIdentifier;
 - (BOOL)flickrPhotoForRawIdentifier:(NSString*)rawIdentifier hasLastChangedBeforeModificationDate:(NSDate*)modificationDate;
