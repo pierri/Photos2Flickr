@@ -1,6 +1,0 @@
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/ReactiveCocoa" "${PODS_ROOT}/Headers/Public/Underscore.m" "${PODS_ROOT}/Headers/Public/objectiveflickr"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/ReactiveCocoa" -isystem "${PODS_ROOT}/Headers/Public/Underscore.m" -isystem "${PODS_ROOT}/Headers/Public/objectiveflickr"
-OTHER_LDFLAGS = -ObjC -l"Pods-ReactiveCocoa" -l"Pods-Underscore.m" -l"Pods-objectiveflickr" -framework "CFNetwork" -framework "SystemConfiguration"
-OTHER_LIBTOOLFLAGS = $(OTHER_LDFLAGS)
-PODS_ROOT = ${SRCROOT}/Pods

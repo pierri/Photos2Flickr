@@ -1,0 +1,8 @@
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/ReactiveCocoa" "${PODS_ROOT}/Headers/Public/Underscore.m" "${PODS_ROOT}/Headers/Public/objectiveflickr"
+LIBRARY_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/ReactiveCocoa" "$PODS_CONFIGURATION_BUILD_DIR/Underscore.m" "$PODS_CONFIGURATION_BUILD_DIR/objectiveflickr"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/ReactiveCocoa" -isystem "${PODS_ROOT}/Headers/Public/Underscore.m" -isystem "${PODS_ROOT}/Headers/Public/objectiveflickr"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"ReactiveCocoa" -l"Underscore.m" -l"objectiveflickr" -framework "CFNetwork" -framework "SystemConfiguration"
+PODS_BUILD_DIR = $BUILD_DIR
+PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_ROOT = ${SRCROOT}/Pods
