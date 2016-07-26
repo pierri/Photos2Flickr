@@ -109,6 +109,7 @@ Medium priority:
 - Feature: Automatically upload to Flickr whenever media library is updated
 - Feature: Persist and display last upload completion timestamp (x minutes ago)
 - Feature: Use OFFlickrAPIRequest cancel to interrupt request in progress
+- Feature: Update tags on Flickr when they're updated in Photos
 
 Low priority:
 - Refactor: Make FlickrClient reactive/asynchronous (not only its upload method)
