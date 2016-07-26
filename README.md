@@ -38,8 +38,7 @@ Design - Operations
                                         |----------------|
                                         | execute()      |
                                         | getSizeBytes() |
-                                        | getBytesDone() |
-                                        | isExecuted()   |
+                                        | isDone()       |
                                         +----------------+
                                                  ^
                                                  |
@@ -105,7 +104,7 @@ Backlog
 -------
 
 Medium priority:
-- Feature/Bugfix: Error handling, e.g. when pic can't be uploaded e.g. doesn't exist anymore
+- Feature: Retry failed operations (and mark completed operations as done)
 - Feature: Automatically upload to Flickr whenever media library is updated
 - Feature: Persist and display last upload completion timestamp (x minutes ago)
 - Feature: Use OFFlickrAPIRequest cancel to interrupt request in progress

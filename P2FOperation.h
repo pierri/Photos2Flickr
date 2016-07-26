@@ -15,7 +15,6 @@
 @protocol P2FOperation <NSObject>
 -(RACSignal*)execute;
 -(NSUInteger)getSizeBytes;
--(NSUInteger)getBytesDone;
 @end
 
 @interface P2FOperation : NSObject <P2FOperation>

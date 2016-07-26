@@ -136,7 +136,7 @@
         if (![self objectExistsOnFlickr:mediaObject]) {
             operation = [[P2FUploadMediaObjectOperation alloc]initWithMediaObject:mediaObject];
         } else if ([self wasEditedSinceLastFlickrUpload:mediaObject]) {
-            operation = [[P2FUpdateMediaObjectOperation alloc]initWithMediaObject:mediaObject];
+            //operation = [[P2FUpdateMediaObjectOperation alloc]initWithMediaObject:mediaObject];
         }
         return operation;
     };
@@ -247,13 +247,6 @@
     return ^NSNumber* (NSNumber* memo, P2FOperation* operation) {
         NSUInteger operationSize = [operation getSizeBytes];
         return @([memo unsignedIntegerValue] + operationSize);
-    };
-}
-
-- (UnderscoreReduceBlock) addOperationDone {
-    return ^NSNumber* (NSNumber* memo, P2FOperation* operation) {
-        NSUInteger operationDone = [operation getBytesDone];
-        return @([memo unsignedIntegerValue] + operationDone);
     };
 }
 
