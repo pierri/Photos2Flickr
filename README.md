@@ -108,6 +108,7 @@ Medium priority:
 - Feature/Bugfix: Error handling, e.g. when pic can't be uploaded e.g. doesn't exist anymore
 - Feature: Automatically upload to Flickr whenever media library is updated
 - Feature: Persist and display last upload completion timestamp (x minutes ago)
+- Feature: Use OFFlickrAPIRequest cancel to interrupt request in progress
 
 Low priority:
 - Refactor: Make FlickrClient reactive/asynchronous (not only its upload method)
