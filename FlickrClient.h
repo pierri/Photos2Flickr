@@ -20,6 +20,7 @@
 
 #pragma mark Upload
 - (RACSignal*)uploadImage:(NSURL *)inImageURL title:(NSString*)title description:(NSString*)description facesNames:(NSArray*)facesNames machineTag:(NSString*)machineTag;
+- (RACSignal*)replaceImage:(NSURL *)inImageURL photoId:(NSString*)photoId;
 - (void)startProcessing;
 - (void)stopProcessing;
 - (NSString*)getUploadedPhotoId;

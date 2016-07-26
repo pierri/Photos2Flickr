@@ -2,6 +2,10 @@
 #import <AppKit/AppKit.h>
 #import <objectiveflickr/ObjectiveFlickr.h>
 
+#define kFlickrUploadEndpoint		@"https://up.flickr.com/services/upload/"
+#define kFlickrReplaceEndpoint		@"https://up.flickr.com/services/replace/"
+
+
 // Internal
 static NSString * const kSignalOperation = @"The current operation returns a RACSignal";
 
@@ -245,6 +249,26 @@ static FlickrClient *_sharedClient = nil;
     NSString *mimeType = @"image/jpeg";
     
     _flickrRequest.sessionInfo = kSignalOperation;
+    [_flickrContext setUploadEndpoint:kFlickrUploadEndpoint];
+    BOOL startUploadSuccessful = [_flickrRequest uploadImageStream:[NSInputStream inputStreamWithURL:inImageURL]
+                                                 suggestedFilename:nil
+                                                          MIMEType:mimeType
+                                                         arguments:params];
+    NSAssert(startUploadSuccessful, @"Couldn't start upload - this isn't expected!");
+    
+    return [self createOperationSignal];
+}
+
+- (RACSignal*)replaceImage:(NSURL *)inImageURL photoId:(NSString*)photoId {
+    
+    NSString *mimeType = @"image/jpeg";
+    
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            photoId, @"photo_id",
+                            nil];
+
+    _flickrRequest.sessionInfo = kSignalOperation;
+    [_flickrContext setUploadEndpoint:kFlickrReplaceEndpoint];
     BOOL startUploadSuccessful = [_flickrRequest uploadImageStream:[NSInputStream inputStreamWithURL:inImageURL]
                                                  suggestedFilename:nil
                                                           MIMEType:mimeType

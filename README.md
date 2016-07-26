@@ -64,7 +64,7 @@ Progress computation:
 * Assumption: Stable network connection
 * Percent indication over total size in MB
 * Use pic size in MB
-* Consider 0.05 MB for all other requests
+* Assume 0.05 MB for all other requests
 * Display "Estimating time remaining" until first MB uploaded
 * Time remaining computed using average throughput during time elapsed
 
@@ -105,8 +105,7 @@ Backlog
 -------
 
 Medium priority:
-- Feature/Bugfix: Error handling, e.g. when pic can't be uploaded
-- Feature: Update existing pics
+- Feature/Bugfix: Error handling, e.g. when pic can't be uploaded e.g. doesn't exist anymore
 - Feature: Automatically upload to Flickr whenever media library is updated
 - Feature: Persist and display last upload completion timestamp (x minutes ago)
 - Bugfix: Progress shouldn't freeze when menulet is open

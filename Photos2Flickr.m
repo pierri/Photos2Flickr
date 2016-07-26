@@ -136,7 +136,7 @@
         if (![self objectExistsOnFlickr:mediaObject]) {
             operation = [[P2FUploadMediaObjectOperation alloc]initWithMediaObject:mediaObject];
         } else if ([self wasEditedSinceLastFlickrUpload:mediaObject]) {
-            // operation = [[P2FUpdateMediaObjectOperation alloc]initWithMediaObject:mediaObject];
+            operation = [[P2FUpdateMediaObjectOperation alloc]initWithMediaObject:mediaObject];
         }
         return operation;
     };
