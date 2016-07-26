@@ -280,6 +280,7 @@ static FlickrClient *_sharedClient = nil;
 
 -(RACSubject*)createOperationSignal {
     _currentOperationSignal = [[RACSubject alloc]init];
+    [_currentOperationSignal sendNext:@(0)];
     return _currentOperationSignal;
 }
 

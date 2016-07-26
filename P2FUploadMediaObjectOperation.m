@@ -22,8 +22,6 @@
     
     NSString *machineTag = [mediaObject machineTag];
     
-    RACSubject *progressSignal = [[RACSubject alloc]init];
-    [progressSignal sendNext:@(0)];
     
     RACSignal *uploadSignal = [flickrClient uploadImage:photosMediaObjectURL
                                                   title:title
@@ -31,19 +29,7 @@
                                              facesNames:facesNames
                                              machineTag:machineTag];
     
-    [uploadSignal subscribeNext:^(NSNumber* bytesSent) {
-        
-        [progressSignal sendNext:bytesSent];
-    
-    } error:^(NSError *error) {
-        
-        NSLog(@"Error during upload: %@", [error localizedDescription]);
-        
-        // TODO not implemented yet
-        [progressSignal sendNext:@([self getSizeBytes])]; // TODO remove - for testing purposes only
-        [progressSignal sendCompleted];
-    
-    } completed:^{
+    [uploadSignal subscribeCompleted:^{
         NSString *flickrPhotoId = [flickrClient getUploadedPhotoId];
         
         if (flickrPhotoId != nil) {
@@ -51,10 +37,9 @@
             [flickrClient setFlickrPhotoId:flickrPhotoId forRawIdentifier:photosMediaObjectIdentifier];
         }
         
-        [progressSignal sendCompleted];
     }];
     
-    return progressSignal;
+    return uploadSignal;
 }
 
 -(NSUInteger)getSizeBytes {
