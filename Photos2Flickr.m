@@ -28,15 +28,16 @@
     [_delegate processStarting];
     
     PhotosClient *photosClient = [[PhotosClient alloc] init];
-    RACSignal *mediaObjectsLoadingSignal = [photosClient loadMediaObjects];
+    RACSignal *mediaGroupsLoadingSignal = [photosClient loadMediaGroups];
+    RACSignal *mediaGroupsReplaySignal = [mediaGroupsLoadingSignal replay];
     
     RACSignal *flickrPhotosLoadingSignal = [_flickrClient readAllImagesWithMachineTag:kMachineTagPrefix];
-    
-    [[mediaObjectsLoadingSignal merge:flickrPhotosLoadingSignal] subscribeCompleted:^{
+
+    [[mediaGroupsLoadingSignal merge:flickrPhotosLoadingSignal] subscribeCompleted:^{
         
+        // TODO make this an asynchronous signal as well
         [_flickrClient readAllPhotosetsWithDescriptionPrefix:kMachineTagPrefix];
-        
-        
+
         // Delete photos from Flickr which are not available in photos anymore
         NSArray *mediaObjectsIdentifiers = _.array([photosClient mediaObjects]).map(^(MLMediaObject *mediaObject) {
             return [FlickrClient cleanTag: [mediaObject identifier]];
@@ -72,7 +73,7 @@
                                                     map:self.wrapInP2FMediaObject]
                                                    map:self.determineMediaObjectOperation];
         
-        RACSignal *mediaGroupsOperationsSignal = [[[[photosClient loadMediaGroups]
+        RACSignal *mediaGroupsOperationsSignal = [[[mediaGroupsReplaySignal
                                                     map:self.wrapInP2FMediaGroup]
                                                    map:self.determineMediaGroupOperations]
                                                   flatten];

@@ -103,6 +103,9 @@ Status bar:
 Backlog
 -------
 
+High priority:
+- Feature: Upload Shared albums
+
 Medium priority:
 - Feature: Retry failed operations (and mark completed operations as done)
 - Feature: Automatically upload to Flickr whenever media library is updated
@@ -113,4 +116,3 @@ Medium priority:
 Low priority:
 - Refactor: Make FlickrClient reactive/asynchronous (not only its upload method)
 - Feature: Sort albums
-- Refactor: Extract method for duplicate code in PhotosClient
