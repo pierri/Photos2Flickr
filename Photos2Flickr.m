@@ -29,8 +29,6 @@
     
     PhotosClient *photosClient = [[PhotosClient alloc] init];
     RACSignal *mediaGroupsLoadingSignal = [photosClient loadMediaGroups];
-    RACSignal *mediaGroupsReplaySignal = [mediaGroupsLoadingSignal replay];
-    
     RACSignal *flickrPhotosLoadingSignal = [_flickrClient readAllImagesWithMachineTag:kMachineTagPrefix];
 
     [[mediaGroupsLoadingSignal merge:flickrPhotosLoadingSignal] subscribeCompleted:^{
@@ -43,78 +41,69 @@
             return [FlickrClient cleanTag: [mediaObject identifier]];
         }).unwrap;
         
-        RACSignal *deleteOperationsSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-            NSDictionary *flickrPhotosToBeDeleted =
-            _.dict(_.rejectKeys([_flickrClient mapCleanIdentifierToFlickrPhoto], ^BOOL (NSString *photosMediaObjectIdentifier) {
+        NSArray *deleteOperations = _.dict(_.rejectKeys([_flickrClient mapCleanIdentifierToFlickrPhoto], ^BOOL (NSString *photosMediaObjectIdentifier) {
+                // don't delete pic from Flickr when it can be found in Photos
                 return [mediaObjectsIdentifiers containsObject:photosMediaObjectIdentifier];
-            })).each(^(NSString *photosMediaObjectIdentifier, NSDictionary *flickrPhoto) {
+            })).map(^(NSString *photosMediaObjectIdentifier, NSDictionary *flickrPhoto) {
                 NSString *flickrPhotoId = [flickrPhoto objectForKey:@"id"];
                 P2FDeleteFlickrPhotoOperation *operation = [[P2FDeleteFlickrPhotoOperation alloc]initWithFlickrPhotoId:flickrPhotoId];
-                [subscriber sendNext:operation];
-            }).unwrap;
+                return operation;
+            }).values.unwrap;
             
-            NSLog(@"%lu pics deleted from Photos will be deleted from Flickr", (unsigned long)[flickrPhotosToBeDeleted count]);
-            
-            [subscriber sendCompleted];
-            return nil;
-        }];
-
+        NSLog(@"%lu pics deleted from Photos will be deleted from Flickr", (unsigned long)[deleteOperations count]);
         
-        RACSignal *mediaObjectsSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-            _.array([photosClient mediaObjects]).each(^(MLMediaObject* mediaObject) {
-                [subscriber sendNext:mediaObject];
+        NSArray *mediaObjectsOperations = _.array([photosClient mediaObjects])
+                                           .map(self.wrapInP2FMediaObject)
+                                           .map(self.determineMediaObjectOperation)
+                                           .flatten
+                                           .unwrap;
+        
+        NSArray *mediaGroupsOperations = _.array([photosClient mediaGroups])
+                                          .map(self.wrapInP2FMediaGroup)
+                                          .map(self.determineMediaGroupOperations)
+                                          .flatten
+                                          .unwrap;
+        
+        
+        NSArray *allOperations = [[deleteOperations
+                                arrayByAddingObjectsFromArray:mediaObjectsOperations]
+                               arrayByAddingObjectsFromArray:mediaGroupsOperations];
+        
+        NSNumber *totalBytesToUpload = _.array(allOperations).reduce(@0, self.addOperationSize);
+        _totalBytesToUpload = [totalBytesToUpload unsignedIntegerValue];
+        _totalBytesDone = 0;
+        [self.delegate progressBytesUploaded:_totalBytesDone totalBytesToUpload:_totalBytesToUpload];
+        NSLog(@"%@ to upload overall", [self sizeHumanReadable:[totalBytesToUpload unsignedIntegerValue]]);
+    
+        RACSignal *operationsSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+            _.array(allOperations).each(^(P2FOperation* operation) {
+                [subscriber sendNext:operation];
             });
             
             [subscriber sendCompleted];
             return nil;
         }];
         
-        RACSignal *mediaObjectsOperationsSignal = [[mediaObjectsSignal
-                                                    map:self.wrapInP2FMediaObject]
-                                                   map:self.determineMediaObjectOperation];
-        
-        RACSignal *mediaGroupsOperationsSignal = [[[mediaGroupsReplaySignal
-                                                    map:self.wrapInP2FMediaGroup]
-                                                   map:self.determineMediaGroupOperations]
-                                                  flatten];
-        
-        RACSignal *operationsSignal = [[[deleteOperationsSignal
-                                         concat:mediaObjectsOperationsSignal]
-                                        concat:mediaGroupsOperationsSignal]
-                                       filter:self.removeNil];
-        
-        RACSignal *operationsReplaySignal = [operationsSignal replay];
-        
-        [[operationsSignal aggregateWithStart:@0 reduce:self.addOperationSize]
-         subscribeNext:^(NSNumber *totalBytesToUpload) {
+        [[operationsSignal zipWith:_flickrClient.ready] subscribeNext:^(RACTuple *tuple) {
+            P2FOperation *operation = [tuple objectAtIndex:0];
+            NSString *operationDescription = [operation description];
+            NSUInteger operationSize = [operation getSizeBytes];
+            
+            [self operationProgress:operationDescription bytesDone:0 ofSizeBytes:@(operationSize)];
+            
+            RACSignal *executionSignal = [operation execute];
+            
+            [executionSignal subscribeNext:^(NSNumber *bytesSentNumber) {
+                [self operationProgress:operationDescription bytesDone:bytesSentNumber ofSizeBytes:@(operationSize)];
+            } completed:^{
+                _totalBytesDone += operationSize;
+            }];
+        } completed:^{
+            NSLog(@"Processing done or interrupted");
+            [_delegate processInterrupted];
+        }];
              
-             _totalBytesToUpload = [totalBytesToUpload unsignedIntegerValue];
-             _totalBytesDone = 0;
-             [self.delegate progressBytesUploaded:_totalBytesDone totalBytesToUpload:_totalBytesToUpload];
-             NSLog(@"%@ to upload overall", [self sizeHumanReadable:[totalBytesToUpload unsignedIntegerValue]]);
-             
-             [[operationsReplaySignal zipWith:_flickrClient.ready] subscribeNext:^(RACTuple *tuple) {
-                 P2FOperation *operation = [tuple objectAtIndex:0];
-                 NSString *operationDescription = [operation description];
-                 NSUInteger operationSize = [operation getSizeBytes];
-                 
-                 [self operationProgress:operationDescription bytesDone:0 ofSizeBytes:@(operationSize)];
-                 
-                 RACSignal *executionSignal = [operation execute];
-                 
-                 [executionSignal subscribeNext:^(NSNumber *bytesSentNumber) {
-                     [self operationProgress:operationDescription bytesDone:bytesSentNumber ofSizeBytes:@(operationSize)];
-                 } completed:^{
-                     _totalBytesDone += operationSize;
-                 }];
-             } completed:^{
-                 NSLog(@"Processing done or interrupted");
-                 [_delegate processInterrupted];
-             }];
-             
-             [_flickrClient startProcessing];
-         }];
-
+        [_flickrClient startProcessing];
     }];
 }
 
@@ -144,26 +133,21 @@
 }
 
 - (UnderscoreArrayMapBlock)determineMediaGroupOperations {
-    return ^RACSignal* (P2FMediaGroup* p2fMediaGroup) {
+    return ^NSArray* (P2FMediaGroup* p2fMediaGroup) {
         
-        RACSignal *operationsSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-            
-            BOOL justCreated = false;
-            if (![self groupExistsOnFlickr:p2fMediaGroup]) {
-                justCreated = true;
-                [subscriber sendNext:[[P2FCreateMediaGroupOperation alloc]initWithMediaGroup:p2fMediaGroup]];
-            }
-            
-            if (justCreated || [self groupWasEditedSinceLastFlickrUpload:p2fMediaGroup]) {
-                [subscriber sendNext:[[P2FUpdateMediaGroupPicsOperation alloc]initWithMediaGroup:p2fMediaGroup]];
-            }
-    
-            [subscriber sendCompleted];
-            
-            return nil;
-        }];
+        NSMutableArray *operations = [[NSMutableArray alloc]init];
         
-        return operationsSignal;
+        BOOL justCreated = false;
+        if (![self groupExistsOnFlickr:p2fMediaGroup]) {
+            justCreated = true;
+            [operations addObject:[[P2FCreateMediaGroupOperation alloc]initWithMediaGroup:p2fMediaGroup]];
+        }
+            
+        if (justCreated || [self groupWasEditedSinceLastFlickrUpload:p2fMediaGroup]) {
+            [operations addObject:[[P2FUpdateMediaGroupPicsOperation alloc]initWithMediaGroup:p2fMediaGroup]];
+        }
+        
+        return operations;
     };
 }
 
@@ -216,12 +200,6 @@
     
     return false;
 
-}
-
-- (UnderscoreArrayIteratorBlock)executeOperation {
-    return ^(NSObject<P2FOperation>* operation) {
-        [operation execute];
-    };
 }
 
 /** private */

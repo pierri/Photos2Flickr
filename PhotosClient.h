@@ -4,5 +4,6 @@
 
 @interface PhotosClient : NSObject
 @property (nonatomic, retain) NSArray *mediaObjects;
+@property (nonatomic, retain) NSMutableArray *mediaGroups;
 -(RACSignal*)loadMediaGroups;
 @end

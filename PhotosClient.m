@@ -11,6 +11,7 @@ static NSString *const kAlbumMediaObjects = @"albumMediaObjects";
 
 -(RACSignal*)loadMediaGroups {
     
+    _mediaGroups = [[NSMutableArray alloc]init];
     RACSubject *mediaGroupsSignal = [[RACSubject alloc]init];
     
     BOOL (^removeNil)(id) = ^BOOL(id value){
@@ -61,6 +62,8 @@ static NSString *const kAlbumMediaObjects = @"albumMediaObjects";
                             NSLog(@"Media objects loaded");
                             _mediaObjects = mediaObjects;
                         }
+                        
+                        [_mediaGroups addObject:album];
                         
                         [mediaGroupsSignal sendNext:album];
                         [thisAlbumLoaded sendNext:nil];
