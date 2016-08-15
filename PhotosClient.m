@@ -11,6 +11,9 @@ static NSString *const kAlbumMediaObjects = @"albumMediaObjects";
 
 -(RACSignal*)loadMediaGroups {
     
+    _mediaObjects = [[NSArray alloc]init];
+    NSMutableSet *mediaObjectsSet = [[NSMutableSet alloc]init];
+    
     _mediaGroups = [[NSMutableArray alloc]init];
     RACSubject *mediaGroupsSignal = [[RACSubject alloc]init];
     
@@ -41,16 +44,18 @@ static NSString *const kAlbumMediaObjects = @"albumMediaObjects";
         [mediaSourcesUpdated subscribeNext:^(MLMediaGroup *rootMediaGroup) {
             NSLog(@"Albums list loaded");
             
+            MLMediaGroup *sharedAlbums = [mediaSource mediaGroupForIdentifier:@"com.apple.Photos.SharedGroup"];
             MLMediaGroup *topLevelAlbums = [mediaSource mediaGroupForIdentifier:@"TopLevelAlbums"];
+            NSArray *albums = [sharedAlbums.childGroups arrayByAddingObjectsFromArray:topLevelAlbums.childGroups];
             
             RACSignal *allMediaGroupsLoaded = [RACSignal createSignal:once];
             
-            for (MLMediaGroup* album in topLevelAlbums.childGroups) {
+            for (MLMediaGroup* album in albums) {
                 
                 NSString *albumIdentifier = [album.attributes objectForKey:@"identifier"];
                 NSString *albumTypeIdentifier = [album.attributes objectForKey:@"typeIdentifier"];
                 
-                if ([albumTypeIdentifier isEqualTo:@"com.apple.Photos.Album"] || [albumIdentifier isEqualTo:@"allPhotosAlbum"]) {
+                if ([albumTypeIdentifier isEqualTo:@"com.apple.Photos.Album"] || [albumIdentifier isEqualTo:@"allPhotosAlbum"] || [albumTypeIdentifier isEqualTo:@"com.apple.Photos.SharedPhotoStream"]) {
                     
                     RACSignal *mediaObjectsLoaded = [RACObserve(album, mediaObjects) filter:removeNil];
                     RACSubject *thisAlbumLoaded = [[RACSubject alloc]init];
@@ -58,10 +63,7 @@ static NSString *const kAlbumMediaObjects = @"albumMediaObjects";
                     
                     [mediaObjectsLoaded subscribeNext:^(id mediaObjects) {
                         
-                        if ([albumIdentifier isEqualTo:@"allPhotosAlbum"]) {
-                            NSLog(@"Media objects loaded");
-                            _mediaObjects = mediaObjects;
-                        }
+                        [mediaObjectsSet addObjectsFromArray:mediaObjects];
                         
                         [_mediaGroups addObject:album];
                         
@@ -72,7 +74,8 @@ static NSString *const kAlbumMediaObjects = @"albumMediaObjects";
             };
             
             [allMediaGroupsLoaded subscribeCompleted:^{
-                NSLog(@"Media groups loaded");
+                _mediaObjects = [mediaObjectsSet allObjects];
+                NSLog(@"Media groups loaded, total %lu media objects", (unsigned long)[_mediaObjects count]);
                 [mediaGroupsSignal sendCompleted];
             }];
         }];

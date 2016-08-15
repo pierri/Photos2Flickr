@@ -102,8 +102,6 @@
             NSLog(@"Processing done or interrupted");
             [_delegate processInterrupted];
         }];
-             
-        [_flickrClient startProcessing];
     }];
 }
 

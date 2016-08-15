@@ -29,7 +29,12 @@
                                              facesNames:facesNames
                                              machineTag:machineTag];
     
-    [uploadSignal subscribeCompleted:^{
+    [uploadSignal subscribeError:^(NSError *error) {
+        
+        NSLog(@"Error: %@", [error localizedDescription]);
+        NSLog(@"URL: %@", photosMediaObjectURL);
+        
+    } completed:^{
         NSString *flickrPhotoId = [flickrClient getUploadedPhotoId];
         
         if (flickrPhotoId != nil) {
